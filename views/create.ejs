@@ -1,0 +1,38 @@
+<%- include('header') %>
+
+<!-- <div class="container mt-5">
+<form action="/createNote" method="post">
+    <input type="text" name="title" placeholder="Note title" id="">
+    <input type="text" name="noteBody" placeholder="Note body" id="">
+    <button type="submit">Submit</button>
+</form>
+
+</div> -->
+<!-- style="max-width: 18rem; -->
+    <div class="card text-white bg-dark w-50 position-absolute top-50 start-50 translate-middle">
+        <form action="/createNote" method="post">
+            <div class="card-header">
+                <textarea name="title" id="" cols="50" rows="1" placeholder="Title" style="resize: none; background-color: #212529; color: white; border: #212529; border-radius: 5px;"></textarea>
+            </div>
+            <div class="card-body">
+                <textarea rows="10" cols="96" name="notes" placeholder="Notes..." id="" style=" background-color: #212529; color: white; border: #212529; border-radius: 5px;"> </textarea>
+            </div>
+            <div class="d-grid gap-2" >
+                <button type="button" class="btn btn-danger ">Save</button>
+            </div>
+            
+        </form>
+
+      </div>
+
+<!-- <div class="dropdown-menu p-4 text-muted" style="max-width: 200px;">
+    <p>
+      Some example text that's free-flowing within the dropdown menu.
+    </p>
+    <p class="mb-0">
+      And this is more example text.
+    </p>
+  </div> -->
+
+
+<%- include('footer') %>
