@@ -10,7 +10,9 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb://localhost:27017/AnyNoteDB");
+let MONGODB_URI = `mongodb+srv://munisa:tel5850789@cluster0.eh7df.mongodb.net/AnyNoteDB`;
+
+mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/AnyNoteDB");
 
 const anynoteSchema = {
   date: String,
@@ -59,60 +61,59 @@ app.post("/createNote", (req, res) => {
 
       console.log("success");
     } else {
-      res.redirect('/create')
+      res.redirect("/create");
       console.log("failed, the error is ", err);
     }
   });
 });
 
-app.get('/delete/:id', (req, res) => {
-  AnyNote.findByIdAndDelete(req.params.id,(err) => {
-    err ? console.error(err) : console.log("deleted")
+app.get("/delete/:id", (req, res) => {
+  AnyNote.findByIdAndDelete(req.params.id, (err) => {
+    err ? console.error(err) : console.log("deleted");
 
-    res.redirect('/')
-  })
-})
+    res.redirect("/");
+  });
+});
 
-app.get('/edit/:id', (req, res) => {
+app.get("/edit/:id", (req, res) => {
   AnyNote.findOneAndUpdate(
-    {_id: req.params.id},
-    {$set: req.body },
+    { _id: req.params.id },
+    { $set: req.body },
     (err, result) => {
-      if (!err){
-        res.render('update', {anyNote: result})
+      if (!err) {
+        res.render("update", { anyNote: result });
+      } else {
+        console.log(err);
       }
-      else {
-        console.log(err)
-      }
-})
-})
-
-app.get('/delete/:id', (req, res) => {
-  AnyNote.findByIdAndDelete(req.params.id,(err) => {
-    err ? console.error(err) : console.log("deleted")
-
-    res.redirect('/')
-  })
-})
-
-app.post('/edit/:id', (req, res) => {
-    AnyNote.findOneAndUpdate(
-      {_id: req.params.id},
-      {$set: req.body },
-      (err, result) => {
-        if (!err){
-          console.log(req.body)
-
-          res.redirect('/')
-          console.log("success")
-        }
-        else {
-          console.log(err)
-        }
-  })  
     }
-  )
-  
+  );
+});
+
+app.get("/delete/:id", (req, res) => {
+  AnyNote.findByIdAndDelete(req.params.id, (err) => {
+    err ? console.error(err) : console.log("deleted");
+
+    res.redirect("/");
+  });
+});
+
+app.post("/edit/:id", (req, res) => {
+  AnyNote.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: req.body },
+    (err, result) => {
+      if (!err) {
+        console.log(req.body);
+
+        res.redirect("/");
+        console.log("success");
+      } else {
+        console.log(err);
+      }
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log("Hello world", port);
 });
