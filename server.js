@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 5000;
+// const port = 5000;
 const mongoose = require("mongoose");
 const req = require("express/lib/request");
 const res = require("express/lib/response");
+const dotenv =  require('dotenv').config()
+const PORT =  process.env.PORT || 5000
 //middleware
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -114,6 +116,6 @@ app.post("/edit/:id", (req, res) => {
   );
 });
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("Hello world", port);
 });
